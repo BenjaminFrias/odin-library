@@ -1,6 +1,31 @@
 const libraryTable = document.querySelector(".library-table tbody");
+const addBookBtn = document.querySelector("#add-book-btn");
+const dialog = document.querySelector("dialog");
+const addBookForm = document.querySelector("form");
 
 const myLibrary = [];
+
+addBookBtn.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+addBookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    var title = document.getElementById('title-input').value;
+    var author = document.getElementById('author-input').value;
+    var pages = document.getElementById('pages-input').value;
+    // If radio input yes is pressed readYes is true, else is false.
+    var readYes = document.getElementById('read-input-1').checked;
+
+    addBookToLibrary(title, author, pages, readYes);
+    displayBooks();
+    dialog.close();
+    
+    // Clear inputs
+    addBookForm.reset();
+});
+
 
 function Book(title, author, pages, read) {
     (this.title = title),
@@ -12,12 +37,7 @@ function Book(title, author, pages, read) {
         });
 }
 
-function addBookToLibrary() {
-    let title = prompt("Book title: ");
-    let author = prompt("Book author: ");
-    let pages = prompt("Book pages: ");
-    let read = confirm("read the book?");
-
+function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(new Book(title, author, pages, read));
 }
 
@@ -25,7 +45,6 @@ function displayBooks() {
     myLibrary.forEach((book) => {
         const tr = document.createElement("tr");
         for (let prop in book) {
-
             // Check if the property is a method
             if (book.hasOwnProperty(prop) && typeof book[prop] !== "function") {
                 const bookData = document.createElement("td");
