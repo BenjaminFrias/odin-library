@@ -61,6 +61,8 @@ function displayBooks() {
                 tr.appendChild(bookData);
             }
         }
+
+        // Create delete buttons
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-btn");
         deleteBtn.addEventListener("click", () => {
@@ -69,6 +71,16 @@ function displayBooks() {
         });
         deleteBtn.textContent = "Delete";
         tr.appendChild(deleteBtn);
+        
+        // Create change read status buttons
+        const readStatusBtn = document.createElement("button");
+        readStatusBtn.classList.add("read-status-btn");
+        readStatusBtn.addEventListener("click", () => {
+            myLibrary[i].read = myLibrary[i].read ? false : true;
+            displayBooks();
+        });
+        readStatusBtn.textContent = "Read status";
+        tr.appendChild(readStatusBtn);
 
         libraryTable.appendChild(tr);
     });
