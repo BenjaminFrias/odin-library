@@ -5,57 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <title>Library</title>
 </head>
 
 <body>
 
     <div class="container">
-        <table class="library-table">
-            <caption>My library</caption>
-            <thead>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Number of pages</th>
-                <th scope="col">Read?</th>
-            </thead>
-            <tbody>
+        <header>
+            <h1>Library</h1>
+            <button type="submit" id="add-book-btn">New book</button>
+        </header>
 
-            </tbody>
-        </table>
+        <div class="add-book-form">
+            <dialog>
+                <h2>Enter the book data!</h2>
+                <form method="post">
 
-        <dialog>
-            <p>Enter the book data!</p>
-            <form method="post">
+                    <fieldset>
+                        <legend>Book Information</legend>
 
-                <fieldset>
-                    <legend>Book Information</legend>
+                        <div>
+                            <label for="title-input">Title</label>
+                            <input type="text" name="title" id="title-input" placeholder="Title of the book" required>
+                        </div>
 
-                    <label for="title-input">Title</label>
-                    <input type="text" name="title" id="title-input" placeholder="Title of the book" required>
+                        <div>
+                            <label for="author-input">Author</label>
+                            <input type="text" name="author" id="author-input" placeholder="Author of the book" required>
+                        </div>
 
-                    <label for="author-input">Author</label>
-                    <input type="text" name="author" id="author-input" placeholder="Author of the book" required>
+                        <div>
+                            <label for="pages-input">Number of Pages</label>
+                            <input type="number" name="pages" id="pages-input" min="1" placeholder="Number of pages" required>
+                        </div>
+                    </fieldset>
 
-                    <label for="pages-input">Number of Pages</label>
-                    <input type="number" name="pages" id="pages-input" min="1" placeholder="Number of pages" required>
-                </fieldset>
+                    <fieldset>
+                        <legend>Have you read it?</legend>
 
-                <fieldset>
-                    <legend>Have you read it?</legend>
+                        <label for="read-input-1">Yes</label>
+                        <input type="radio" name="read" id="read-input-1" value="yes" required>
 
-                    <label for="read-input-1">Yes</label>
-                    <input type="radio" name="read" id="read-input-1" value="yes" required>
+                        <label for="read-input-2">No</label>
+                        <input type="radio" name="read" id="read-input-2" value="no" required>
+                    </fieldset>
 
-                    <label for="read-input-2">No</label>
-                    <input type="radio" name="read" id="read-input-2" value="no" required>
-                </fieldset>
+                    <button type="submit" id="close-dialog-form">ADD BOOK</button>
+                </form>
+            </dialog>
+        </div>
 
-                <button type="submit" id="close-dialog-form">Add book</button>
-            </form>
-        </dialog>
+        <div class="library">
 
-        <button type="submit" id="add-book-btn">Add new book</button>
+        </div>
+
     </div>
 
     <script src="script.js"></script>

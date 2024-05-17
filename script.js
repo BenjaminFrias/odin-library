@@ -1,4 +1,4 @@
-const libraryTable = document.querySelector(".library-table tbody");
+const libraryContainer = document.querySelector(".library");
 const addBookBtn = document.querySelector("#add-book-btn");
 const dialog = document.querySelector("dialog");
 const addBookForm = document.querySelector("form");
@@ -15,7 +15,7 @@ addBookForm.addEventListener("submit", (e) => {
     var title = document.getElementById("title-input").value;
     var author = document.getElementById("author-input").value;
     var pages = document.getElementById("pages-input").value;
-    // If radio input yes is pressed readYes is true, else is false.
+    // If radio input yes is pressed readYes is bookCardue, else is false.
     var readYes = document.getElementById("read-input-1").checked;
 
     addBookToLibrary(title, author, pages, readYes);
@@ -41,24 +41,29 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function displayBooks() {
-
-    // Remove Previous books in table and prevent repetition
-    let booksRows = libraryTable.querySelectorAll("tr");
-    if (booksRows) {
-        booksRows.forEach((row) => {
-            row.remove();
+    const booksCards = document.querySelectorAll(".book-card");
+    if (booksCards) {
+        booksCards.forEach(card => {
+            card.remove();
         });
     }
 
-    // Add books in table
     myLibrary.forEach((book, i) => {
-        const tr = document.createElement("tr");
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("book-card");
         for (let prop in book) {
             // Check if the property is a method
             if (book.hasOwnProperty(prop) && typeof book[prop] !== "function") {
-                const bookData = document.createElement("td");
-                bookData.textContent = book[prop];
-                tr.appendChild(bookData);
+                const bookData = document.createElement("p");
+                if (prop == "pages") {
+                    bookData.textContent = `Pages: ${book[prop]}`;
+                } else if (prop == "read") {
+                    bookData.textContent = `Read: ${book[prop]}`;
+                }
+                else {
+                    bookData.textContent = book[prop];
+                }
+                bookCard.appendChild(bookData);
             }
         }
 
@@ -70,7 +75,7 @@ function displayBooks() {
             displayBooks();
         });
         deleteBtn.textContent = "Delete";
-        tr.appendChild(deleteBtn);
+        bookCard.appendChild(deleteBtn);
         
         // Create change read status buttons
         const readStatusBtn = document.createElement("button");
@@ -80,8 +85,8 @@ function displayBooks() {
             displayBooks();
         });
         readStatusBtn.textContent = "Read status";
-        tr.appendChild(readStatusBtn);
+        bookCard.appendChild(readStatusBtn);
 
-        libraryTable.appendChild(tr);
+        libraryContainer.appendChild(bookCard);
     });
 }
