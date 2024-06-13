@@ -15,7 +15,7 @@ addBookForm.addEventListener("submit", (e) => {
     var title = document.getElementById("title-input").value;
     var author = document.getElementById("author-input").value;
     var pages = document.getElementById("pages-input").value;
-    // If radio input yes is pressed readYes is bookCardue, else is false.
+    // If radio input yes is pressed readYes is true, else is false.
     var readYes = document.getElementById("read-input-1").checked;
 
     addBookToLibrary(title, author, pages, readYes);
@@ -26,14 +26,17 @@ addBookForm.addEventListener("submit", (e) => {
     addBookForm.reset();
 });
 
-function Book(title, author, pages, read) {
-    (this.title = title),
-        (this.author = author),
-        (this.pages = pages),
-        (this.read = read),
-        (this.info = function () {
-            return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-        });
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    info = () => {
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+    };
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -43,7 +46,7 @@ function addBookToLibrary(title, author, pages, read) {
 function displayBooks() {
     const booksCards = document.querySelectorAll(".book-card");
     if (booksCards) {
-        booksCards.forEach(card => {
+        booksCards.forEach((card) => {
             card.remove();
         });
     }
@@ -59,8 +62,7 @@ function displayBooks() {
                     bookData.textContent = `Pages: ${book[prop]}`;
                 } else if (prop == "read") {
                     bookData.textContent = `Read: ${book[prop]}`;
-                }
-                else {
+                } else {
                     bookData.textContent = book[prop];
                 }
                 bookCard.appendChild(bookData);
@@ -76,7 +78,7 @@ function displayBooks() {
         });
         deleteBtn.textContent = "Delete";
         bookCard.appendChild(deleteBtn);
-        
+
         // Create change read status buttons
         const readStatusBtn = document.createElement("button");
         readStatusBtn.classList.add("read-status-btn");
